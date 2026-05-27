@@ -330,14 +330,14 @@
       font-style: italic;
       color: var(--primary);
       font-weight: 900;
-      font-size: 5rem;
+      font-size: clamp(3rem, 9vw, 5rem);
     }
     
     /* 描述文字 */
     .hero-desc {
       font-size: 1rem;
       color: var(--text-muted);
-      line-height: 1.8;
+      line-height: 1.9;
       max-width: 420px;
       margin-bottom: 40px;
     }
@@ -352,6 +352,7 @@
     
     /* 主 CTA：深色实心按钮（模仿参考图深蓝按钮）*/
     .cta-primary {
+      width: auto;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -955,8 +956,8 @@
     
       .avatar-wrap {
         width: 100%;
-        min-height: 280px;
-        height: 52vw;
+        min-height: 180px;
+        height: 42vw;
         max-height: 360px;
         border-radius: 12px;
       }
@@ -966,10 +967,19 @@
       }
     
       .hero-headline {
-        font-size: clamp(2.4rem, 11vw, 3.6rem);
+        font-size: clamp(2.8rem, 10vw, 4rem);
       }
+      
+      .hero-headline .highlight {
+      font-size: clamp(3.2rem, 12vw, 4.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+    }
     
-      .hero-desc { max-width: 100%; }
+      .hero-desc {
+      font-size: 1rem;
+      line-height: 1.9;
+    }
     
       .hero-meta-strip { margin-top: 28px; padding-top: 20px; }
     
@@ -1090,8 +1100,9 @@
       </div><!-- /hero-right -->
     
     </div><!-- /hero-layout -->
-    
-    
+
+
+​    
 
   </section>
 
@@ -1101,7 +1112,7 @@
       <div class="section-title">工作经历</div>
       <div class="timeline">
 
-    
+​    
       <!-- 个人优势 -->
       <div class="card" style="margin-bottom:24px;">
         <div class="section-title">个人优势</div>
