@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李洛书 · 个人简历</title>
+  <style>
+    /* ===== 全局重置与基础样式 ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #6C5CE7;       /* 主色：柔紫蓝 */
+      --primary-light: #a29bfe; /* 主色浅版 */
+      --accent: #00b894;        /* 强调色：清新绿 */
+      --accent2: #fd79a8;       /* 点缀色：玫瑰粉 */
+      --orange: #e17055;        /* 点缀色：活力橙 */
+      --bg: #F5F3EF;            /* 页面背景：参考图米白色 */
+      --hero-bg: #F0EDE8;       /* 首页英雄区背景 */
+      --card: #ffffff;          /* 卡片背景 */
+      --text-main: #1a1a2e;     /* 主文字：深蓝黑 */
+      --text-muted: #636e72;    /* 次要文字 */
+      --text-light: #b2bec3;    /* 轻量文字 */
+      --border: #e4e0d8;        /* 边框色 */
+      --nav-h: 64px;            /* 顶部导航高度 */
+      --radius: 14px;           /* 卡片圆角 */
+      --shadow: 0 4px 24px rgba(108,92,231,0.08);
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    
+    /* ===== 顶部导航栏 ===== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(245,243,239,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+    
+    /* 导航品牌名：简洁粗体，参考图风格 */
+    .nav-brand {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    
+    .nav-brand span {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.82rem;
+      margin-left: 6px;
+    }
+    
+    /* 导航菜单：简洁无圆角，参考图风格 */
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      align-items: center;
+    }
+    
+    .nav-links li button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 0;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    
+    .nav-links li button:hover {
+      color: var(--text-main);
+    }
+    
+    .nav-links li button.active {
+      color: var(--text-main);
+      font-weight: 800;
+      position: relative;
+    }
+    
+    /* 激活状态下划线 */
+    .nav-links li button.active::after {
+      content: '';
+      position: absolute;
+      left: 18px; right: 18px;
+      bottom: 2px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+    
+    /* 导航右侧"联系我"按钮（模仿参考图深色实心按钮）*/
+    .nav-contact-btn {
+      background: var(--text-main);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 9px 22px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      margin-left: 16px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .nav-contact-btn:hover {
+      background: var(--primary);
+      box-shadow: 0 4px 16px rgba(108,92,231,0.3);
+    }
+    
+    /* 移动端汉堡菜单按钮 */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      border: none;
+      background: none;
+    }
+    
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    /* 移动端下拉菜单 */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      padding: 12px 20px 16px;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 8px 24px rgba(108,92,231,0.1);
+    }
+    
+    .mobile-menu.open { display: flex; }
+    
+    .mobile-menu button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    
+    .mobile-menu button:hover,
+    .mobile-menu button.active {
+      color: var(--primary);
+      background: rgba(108,92,231,0.08);
+      font-weight: 600;
+    }
+    
+    /* ===== 主内容区域 ===== */
+    .main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 48px) 40px 60px;
+    }
+    
+    /* 首页英雄区左侧不需要额外左内边距（靠 main 的 padding 即可）*/
+    @media (min-width: 681px) {
+      #sec-home .hero-left {
+        padding-right: 64px;
+      }
+    }
+    
+    /* ===== 页面切换动画 ===== */
+    .section {
+      display: none;
+      animation: fadeInUp 0.4s ease both;
+    }
+    
+    .section.active { display: block; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ===== 通用卡片样式 ===== */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px 36px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    
+    .card:hover {
+      box-shadow: 0 8px 36px rgba(108,92,231,0.13);
+      transform: translateY(-2px);
+    }
+    
+    /* ===== 通用区块标题 ===== */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.35rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    
+    /* ===========================
+       首页英雄区 — 参考图风格
+       左：大标题 + 描述 + CTA
+       右：大尺寸头像照片
+    ============================ */
+    
+    /* 首页 section 特殊：全屏高，无 padding-top 限制 */
+    #sec-home {
+      /* 覆盖通用 .section 的 display，让内部 flex 生效 */
+    }
+    
+    /* 整个英雄区：占满视口高度，左右两栏布局 */
+    .hero-layout {
+      display: flex;
+      align-items: stretch;
+      min-height: calc(100vh - var(--nav-h));
+      gap: 0;
+    }
+    
+    /* 左侧内容区 */
+    .hero-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 56px 60px 0;
+      min-width: 0;
+    }
+    
+    /* 顶部小标签 */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: var(--primary);
+      border-radius: 1px;
+    }
+    
+    /* 超大主标题：姓名 */
+    .hero-headline {
+      font-size: clamp(3.2rem, 7vw, 5.6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+    
+    /* 第二行斜体紫色标语（模仿参考图的彩色斜体行）*/
+    .hero-headline .highlight {
+      display: block;
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 5rem;
+    }
+    
+    /* 描述文字 */
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+    
+    /* CTA 按钮组 */
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    /* 主 CTA：深色实心按钮（模仿参考图深蓝按钮）*/
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 32px;
+      background: var(--text-main);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.25s ease;
+    }
+    
+    .cta-primary:hover {
+      background: var(--primary);
+      transform: translateX(4px);
+      box-shadow: 0 6px 24px rgba(108,92,231,0.3);
+    }
+    
+    .cta-primary .arrow {
+      font-size: 1.1rem;
+      transition: transform 0.25s ease;
+    }
+    
+    .cta-primary:hover .arrow {
+      transform: translateX(4px);
+    }
+    
+    /* 副 CTA：联系方式文字链接 */
+    .cta-secondary {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+      padding: 0;
+    }
+    
+    .cta-secondary:hover { color: var(--primary); }
+    
+    /* 底部基本信息小条 */
+    .hero-meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-top: 48px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .meta-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    
+    .meta-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+    
+    /* 右侧头像区 */
+    .hero-right {
+      flex-shrink: 0;
+      width: 420px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* 头像容器：不充满整个右侧高度 */
+    .avatar-wrap {
+      width: 350px;
+      height: 520px;
+      min-height: 520px;
+      background: linear-gradient(160deg, #ddd8f0 0%, #c8c2e8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      /* 圆角仅左侧 */
+      border-radius: 18px;
+    }
+    
+    /* 占位文字（图片未加载时）*/
+    .avatar-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+      z-index: 0;
+    }
+    
+    .avatar-placeholder .ph-initial {
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(108,92,231,0.35);
+      line-height: 1;
+    }
+    
+    .avatar-placeholder .ph-hint {
+      font-size: 0.8rem;
+      color: rgba(108,92,231,0.4);
+      letter-spacing: 0.08em;
+    }
+    
+    /* 装饰色块（参考图右上角的灰色背景感）*/
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(200deg, rgba(108,92,231,0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 100%;
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: none; /* JS加载成功后设为block */
+    }
+    
+    /* ---- 首页下方：联系信息 + 优势 + 快速导航 ---- */
+    
+    /* 联系信息 / 标签条 */
+    .contact-bar {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 32px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    
+    .contact-item:hover { color: var(--primary); }
+    
+    .contact-item .ci-icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: rgba(108,92,231,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    
+    /* 个人优势卡片 */
+    .advantage-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      text-align: justify;
+    }
+    
+    .advantage-text em {
+      font-style: normal;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    /* 快捷导航小按钮 */
+    .quick-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    
+    .quick-btn {
+      padding: 9px 22px;
+      border-radius: 20px;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+    }
+    
+    .quick-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(108,92,231,0.3);
+      transform: translateY(-1px);
+    }
+    
+    /* ===========================
+       工作 / 项目经历
+    ============================ */
+    .timeline {
+      position: relative;
+      padding-left: 24px;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-light), transparent);
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+    
+    .timeline-item:last-child { margin-bottom: 0; }
+    
+    /* 时间线圆点 */
+    .timeline-dot {
+      position: absolute;
+      left: -20px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 3px rgba(108,92,231,0.2);
+    }
+    
+    .job-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    
+    .job-company {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    
+    .job-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    
+    .badge-role {
+      background: rgba(108,92,231,0.1);
+      color: var(--primary);
+    }
+    
+    .badge-date {
+      background: rgba(0,184,148,0.1);
+      color: var(--accent);
+      font-size: 0.82rem;
+    }
+    
+    .badge-current {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-size: 0.75rem;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(108,92,231,0.4); }
+      50%       { box-shadow: 0 0 0 5px rgba(108,92,231,0); }
+    }
+    
+    .job-duties {
+      list-style: none;
+      margin-top: 10px;
+    }
+    
+    .job-duties li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+      line-height: 1.75;
+    }
+    
+    .job-duties li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary-light);
+      font-size: 0.8rem;
+      top: 1px;
+    }
+    
+    /* ===========================
+       教育背景
+    ============================ */
+    .edu-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .edu-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(108,92,231,0.25);
+    }
+    
+    .edu-info { flex: 1; }
+    
+    .edu-school {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    
+    .edu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      margin-top: 8px;
+    }
+    
+    .edu-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    
+    /* ===========================
+       技能特长
+    ============================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    
+    .skill-group-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .skill-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    
+    /* 技能进度条 */
+    .skill-bar-item {
+      margin-bottom: 14px;
+    }
+    
+    .skill-bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    
+    .skill-bar-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+    
+    .skill-bar-pct {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .skill-bar-track {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      width: 0;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* 软技能标签 */
+    .soft-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .soft-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1.5px solid;
+      cursor: default;
+      transition: all 0.2s ease;
+    }
+    
+    .soft-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .soft-tag.purple { color: var(--primary); border-color: var(--primary-light); background: rgba(108,92,231,0.05); }
+    .soft-tag.green  { color: var(--accent);  border-color: #55efc4;               background: rgba(0,184,148,0.05); }
+    .soft-tag.orange { color: var(--orange);  border-color: #fab1a0;               background: rgba(225,112,85,0.05); }
+    .soft-tag.pink   { color: #e84393;        border-color: #fd79a8;               background: rgba(253,121,168,0.05); }
+    
+    /* AI工具标签 */
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    
+    .tool-tag {
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+    
+    .tool-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(108,92,231,0.3);
+    }
+    
+    /* ===========================
+       证书 / 荣誉
+    ============================ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    
+    .cert-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    
+    .cert-card:hover {
+      border-color: var(--primary-light);
+      background: rgba(108,92,231,0.04);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(108,92,231,0.1);
+    }
+    
+    .cert-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    
+    .cert-icon.gold   { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+    .cert-icon.blue   { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+    .cert-icon.green  { background: linear-gradient(135deg, #55efc4, #00b894); }
+    .cert-icon.purple { background: linear-gradient(135deg, #a29bfe, #6C5CE7); }
+    
+    .cert-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    
+    .cert-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    
+    /* ===========================
+       页脚
+    ============================ */
+    .footer {
+      text-align: center;
+      padding: 24px 0 0;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+    
+    /* ===========================
+       响应式：移动端
+    ============================ */
+    /* ===========================
+       响应式：平板端
+    ============================ */
+    @media (max-width: 900px) {
+      .hero-right {
+        width: 36%;
+      }
+      .hero-left {
+        padding: 40px 32px 40px 0;
+      }
+    }
+    
+    /* ===========================
+       响应式：移动端
+    ============================ */
+    @media (max-width: 680px) {
+      .nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-contact-btn { display: none; } /* 移动端隐藏，通过汉堡菜单访问 */
+    
+      /* 移动端 main 的上内边距还原——首页英雄区自己处理间距 */
+      .main { padding: calc(var(--nav-h) + 16px) 16px 48px; }
+    
+      /* ---- 首页英雄区移动端：上下堆叠 ---- */
+      .hero-layout {
+        flex-direction: column-reverse; /* 图片在上，文字在下 */
+        min-height: auto;
+      }
+    
+      .hero-right {
+        width: 100%;
+        max-width: 100%;
+      }
+    
+      .avatar-wrap {
+        width: 100%;
+        min-height: 280px;
+        height: 52vw;
+        max-height: 360px;
+        border-radius: 12px;
+      }
+    
+      .hero-left {
+        padding: 28px 0 20px;
+      }
+    
+      .hero-headline {
+        font-size: clamp(2.4rem, 11vw, 3.6rem);
+      }
+    
+      .hero-desc { max-width: 100%; }
+    
+      .hero-meta-strip { margin-top: 28px; padding-top: 20px; }
+    
+      /* ---- 其他卡片移动端 ---- */
+      .card { padding: 22px 18px; }
+      .contact-bar { padding: 18px 18px; }
+    
+      .skills-grid { grid-template-columns: 1fr; }
+      .cert-grid   { grid-template-columns: 1fr; }
+    
+      .edu-card { flex-direction: row; }
+      .edu-icon { width: 44px; height: 44px; font-size: 1.3rem; border-radius: 10px; }
+    
+      .job-header { flex-direction: column; gap: 4px; }
+    }
+    
+    /* ===========================
+       小屏辅助：进度条触发
+    ============================ */
+    .bars-inited .skill-bar-fill { /* 由JS控制宽度 */ }
+  </style>
+</head>
+<body>
+
+<!-- ========== 顶部导航 ========== -->
+<nav class="nav">
+  <div class="nav-brand">李洛书</div>
+
+  <!-- PC 端导航 -->
+  <ul class="nav-links" id="navLinks">
+    <li><button class="active" onclick="switchSection('home', this)">首页</button></li>
+    <li><button onclick="switchSection('work', this)">工作经历</button></li>
+    <li><button onclick="switchSection('edu', this)">教育背景</button></li>
+    <li><button onclick="switchSection('skills', this)">技能特长</button></li>
+    <li><button onclick="switchSection('certs', this)">证书荣誉</button></li>
+  </ul>
+
+  <!-- PC 端"联系我"按钮 -->
+  <button class="nav-contact-btn" id="navContactBtn"
+    onclick="copyContact()"
+    title="点击复制联系方式">联系我 ✦</button>
+
+  <!-- 移动端汉堡按钮 -->
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- 移动端下拉菜单 -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="active" onclick="switchSection('home', this, true)">首页</button>
+  <button onclick="switchSection('work', this, true)">工作经历</button>
+  <button onclick="switchSection('edu', this, true)">教育背景</button>
+  <button onclick="switchSection('skills', this, true)">技能特长</button>
+  <button onclick="switchSection('certs', this, true)">证书荣誉</button>
+</div>
+
+<!-- ========== 主内容 ========== -->
+<main class="main">
+
+  <!-- ====== 首页 / 个人简介 ====== -->
+  <section class="section active" id="sec-home">
+
+    <!-- ===== 英雄区：左文右图大气布局 ===== -->
+    <div class="hero-layout">
+    
+      <!-- 左侧：文字内容 -->
+      <div class="hero-left">
+    
+        <!-- 顶部小标签 -->
+        <div class="hero-eyebrow">文化艺术 / 品牌视觉 / 平面设计</div>
+    
+        <!-- 超大标题 -->
+        <h1 class="hero-headline">
+          李洛书
+          <span class="highlight">视觉设计师</span>
+        </h1>
+    
+        <!-- 描述 -->
+        <p class="hero-desc">
+          6年平面与视觉设计经验，精通 Photoshop、Illustrator 及 AI 绘图工具，
+          擅长品牌视觉、活动物料、IP 形象设计。
+          用设计讲述品牌故事，用创意创造视觉价值。
+        </p>
+    
+        <!-- CTA 按钮组 -->
+        <div class="hero-cta-group">
+          <button class="cta-primary" onclick="switchSection('work', null)">
+            查看工作经历 <span class="arrow">→</span>
+          </button>
+          <button class="cta-secondary" onclick="switchSection('skills', null)">
+            ✦ 技能特长
+          </button>
+        </div>
+    
+        <!-- 底部基本信息条 -->
+        <div class="hero-meta-strip">
+          <div class="meta-chip"><span class="dot"></span> 女 · 29岁</div>
+          <div class="meta-chip"><span class="dot"></span> 本科 · 视觉传达艺术设计</div>
+          <div class="meta-chip"><span class="dot"></span> 6年设计经验</div>
+          <div class="meta-chip"><span class="dot"></span> 📱 15195885781</div>
+          <div class="meta-chip"><span class="dot"></span> 📧 li19961234@gmail.com</div>
+        </div>
+    
+      </div><!-- /hero-left -->
+    
+      <!-- 右侧：大头像 -->
+      <div class="hero-right">
+        <div class="avatar-wrap" id="avatarWrap">
+          <!-- 占位（无图时显示）-->
+          <div class="avatar-placeholder" id="avatarPlaceholder">
+            <div class="ph-initial">洛</div>
+            <div class="ph-hint">AVATAR</div>
+          </div>
+          <!-- 头像图片（JS探测后显示）-->
+          <img class="avatar-img" id="avatarImg" alt="李洛书头像" />
+        </div>
+      </div><!-- /hero-right -->
+    
+    </div><!-- /hero-layout -->
+    
+    
+
+  </section>
+
+  <!-- ====== 工作经历 ====== -->
+  <section class="section" id="sec-work">
+    <div class="card">
+      <div class="section-title">工作经历</div>
+      <div class="timeline">
+
+    
+      <!-- 个人优势 -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="section-title">个人优势</div>
+        <p class="advantage-text">
+          具备 <em>5年平面与视觉设计经验</em>，熟练使用 <em>Photoshop、Illustrator</em> 等设计软件，能够独立完成营销物料、品牌视觉、活动海报、画册、包装及导视系统等设计工作。拥有十年美术基础与手绘能力，具备良好的审美判断、创意表达和视觉营销理解；熟悉 <em>Midjourney、Stable Diffusion</em> 等 AI 设计工具，能结合新技术提升设计效率与创意产出。曾参与政府项目及大型公司物料设计，具备跨部门沟通、需求理解和<em>快节奏项目执行</em>经验。
+        </p>
+      </div>
+    
+      <div class="card">
+        <div class="section-title">工作经历</div>
+        
+        <!-- 第一段：南京一反重力 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="job-header">
+            <div class="job-company">南京一反重力文化传播有限公司</div>
+            <div class="job-badges">
+              <span class="badge badge-role">视觉设计师</span>
+              <span class="badge badge-date">📅 2021.09 - 至今</span>
+              <span class="badge badge-current">在职</span>
+            </div>
+          </div>
+          <ul class="job-duties">
+            <li>负责品牌线下展会相关视觉与平面物料设计，根据市场部需求把控创意方向，完成活动宣传、展示物料及周边产品外包装设计。</li>
+            <li>承担企业VI、活动海报、网站视觉、画册、导视系统等多类型平面设计工作，保障品牌视觉统一性与传播效果。</li>
+            <li>结合项目需求完成不同风格的海报与场景绘制，提升画面表现力与营销传播吸引力。</li>
+            <li>协助市场部门完成线下展会台拍摄与视觉支持，具备跨部门协作及现场执行经验。</li>
+          </ul>
+        </div>
+    
+        <!-- 第二段：南京铁甲骨 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="job-header">
+            <div class="job-company">南京铁甲骨文化传播有限公司</div>
+            <div class="job-badges">
+              <span class="badge badge-role">平面设计</span>
+              <span class="badge badge-date">📅 2020.07 - 2021.09</span>
+            </div>
+          </div>
+          <ul class="job-duties">
+            <li>负责产品包装、Logo 及宣传物料的设计排版，支持品牌推广与产品视觉呈现。</li>
+            <li>完成多风格海报、广告画面及场景绘制工作，适配不同项目调性与传播场景。</li>
+            <li>参与甲方公司 IP 形象及相关场景设计，具备角色视觉延展与商业化应用能力。</li>
+            <li>负责研发产品图片的 PS 处理及宣传广告设计，提升产品展示质感与营销表现。</li>
+          </ul>
+        </div>
+    
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 教育背景 ====== -->
+  <section class="section" id="sec-edu">
+    <div class="card">
+      <div class="section-title">教育背景</div>
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div class="edu-info">
+          <div class="edu-school">南京传媒学院</div>
+          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:2px;">
+            中国传媒大学南广学院（现更名南京传媒学院）
+          </div>
+          <div class="edu-meta">
+            <span class="edu-tag">📋 本科</span>
+            <span class="edu-tag">🖌️ 视觉传达艺术设计</span>
+            <span class="edu-tag">📅 2018 - 2020</span>
+          </div>
+          <div style="margin-top:16px;font-size:0.88rem;color:var(--text-muted);line-height:1.8;">
+            系统学习视觉传达设计理论与实践，涵盖品牌视觉设计、平面构成、色彩理论、印刷工艺等核心课程，为后续从事专业设计工作奠定了扎实的学术基础与审美体系。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 技能特长 ====== -->
+  <section class="section" id="sec-skills">
+
+    <!-- 设计软件技能 -->
+    <div class="card">
+      <div class="section-title">设计软件技能</div>
+      <div class="skills-grid" id="skillBars">
+    
+        <!-- 左列 -->
+        <div>
+          <div class="skill-group-title">核心软件</div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">Photoshop</span>
+              <span class="skill-bar-pct">95%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="95"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">Illustrator</span>
+              <span class="skill-bar-pct">90%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">IP形象设计</span>
+              <span class="skill-bar-pct">85%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">手绘 / 手绘基础</span>
+              <span class="skill-bar-pct">90%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div>
+          </div>
+        </div>
+    
+        <!-- 右列 -->
+        <div>
+          <div class="skill-group-title">AI 设计工具</div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">Midjourney</span>
+              <span class="skill-bar-pct">85%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="85" style="background:linear-gradient(90deg,var(--accent),#55efc4)"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">Stable Diffusion</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="80" style="background:linear-gradient(90deg,var(--accent),#55efc4)"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">导视系统设计</span>
+              <span class="skill-bar-pct">82%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="82" style="background:linear-gradient(90deg,var(--orange),#fab1a0)"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-header">
+              <span class="skill-bar-name">品牌VI设计</span>
+              <span class="skill-bar-pct">88%</span>
+            </div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-w="88" style="background:linear-gradient(90deg,var(--orange),#fab1a0)"></div></div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    <!-- 核心业务技能标签 -->
+    <div class="card">
+      <div class="section-title">核心业务能力</div>
+      <div class="tool-tags">
+        <span class="tool-tag">平面物料设计</span>
+        <span class="tool-tag">公众号长图</span>
+        <span class="tool-tag">广告画面</span>
+        <span class="tool-tag">宣传画册</span>
+        <span class="tool-tag">活动海报</span>
+        <span class="tool-tag">包装设计</span>
+        <span class="tool-tag">企业VI</span>
+        <span class="tool-tag">导视系统</span>
+        <span class="tool-tag">IP形象设计</span>
+        <span class="tool-tag">场景绘制</span>
+        <span class="tool-tag">视觉拍摄支持</span>
+      </div>
+    </div>
+    
+    <!-- 软技能 -->
+    <div class="card">
+      <div class="section-title">综合素质</div>
+      <div class="soft-skills">
+        <span class="soft-tag purple">🎨 审美判断力</span>
+        <span class="soft-tag purple">💡 创意表达</span>
+        <span class="soft-tag green">🤝 跨部门沟通</span>
+        <span class="soft-tag green">⚡ 需求理解与转化</span>
+        <span class="soft-tag orange">🚀 快节奏执行</span>
+        <span class="soft-tag orange">📐 细节把控</span>
+        <span class="soft-tag pink">🌐 视觉营销理解</span>
+        <span class="soft-tag pink">🖊️ 十年美术基础</span>
+        <span class="soft-tag purple">🤖 AI辅助创作</span>
+        <span class="soft-tag green">📦 物料全流程管控</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====== 证书 / 荣誉 ====== -->
+  <section class="section" id="sec-certs">
+    <div class="card">
+      <div class="section-title">证书 · 荣誉</div>
+      <div class="cert-grid">
+
+        <div class="cert-card">
+          <div class="cert-icon gold">🏅</div>
+          <div>
+            <div class="cert-name">视觉传达艺术设计专业认证</div>
+            <div class="cert-sub">南京传媒学院 · 本科学历</div>
+          </div>
+        </div>
+    
+        <div class="cert-card">
+          <div class="cert-icon blue">🖥️</div>
+          <div>
+            <div class="cert-name">Photoshop 专业应用能力</div>
+            <div class="cert-sub">6年实战经验 · 熟练掌握</div>
+          </div>
+        </div>
+    
+        <div class="cert-card">
+          <div class="cert-icon green">✏️</div>
+          <div>
+            <div class="cert-name">Illustrator 矢量设计</div>
+            <div class="cert-sub">6年实战经验 · 熟练掌握</div>
+          </div>
+        </div>
+    
+        <div class="cert-card">
+          <div class="cert-icon purple">🤖</div>
+          <div>
+            <div class="cert-name">AI 图像生成工具应用</div>
+            <div class="cert-sub">Midjourney · Stable Diffusion</div>
+          </div>
+        </div>
+    
+        <div class="cert-card">
+          <div class="cert-icon gold">🏛️</div>
+          <div>
+            <div class="cert-name">政府项目设计参与经历</div>
+            <div class="cert-sub">大型公司物料 · 跨部门协作</div>
+          </div>
+        </div>
+    
+        <div class="cert-card">
+          <div class="cert-icon blue">🖌️</div>
+          <div>
+            <div class="cert-name">十年美术 · 手绘基础</div>
+            <div class="cert-sub">扎实美术功底 · 独立创作能力</div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    <!-- 项目亮点 -->
+    <div class="card">
+      <div class="section-title">项目亮点 · 荣誉成就</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:1.5rem;flex-shrink:0;">🏆</span>
+          <div>
+            <div style="font-weight:600;color:var(--text-main);font-size:0.92rem;">品牌视觉统一化项目主导</div>
+            <div style="font-size:0.83rem;color:var(--text-muted);margin-top:4px;">主导完成企业VI、导视系统全套设计，保障品牌视觉一致性与传播效果，获得甲方高度认可。</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:1.5rem;flex-shrink:0;">🎖️</span>
+          <div>
+            <div style="font-weight:600;color:var(--text-main);font-size:0.92rem;">线下展会视觉设计专项</div>
+            <div style="font-size:0.83rem;color:var(--text-muted);margin-top:4px;">负责多场品牌线下展会全套视觉物料，涵盖展示物料、宣传品及周边产品外包装，现场执行获好评。</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border);">
+          <span style="font-size:1.5rem;flex-shrink:0;">⭐</span>
+          <div>
+            <div style="font-weight:600;color:var(--text-main);font-size:0.92rem;">IP形象商业化设计</div>
+            <div style="font-size:0.83rem;color:var(--text-muted);margin-top:4px;">参与甲方公司IP形象及场景设计，完成角色视觉延展与商业化应用，推动品牌IP落地。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 页脚 -->
+<div class="footer">
+  <p>© 2026 李洛书 · 个人网站 &nbsp;|&nbsp; 文化艺术 / 品牌视觉 / 平面设计</p>
+</div>
+
+<!-- ========== JavaScript ========== -->
+<script>
+  /* ================================================
+     1. 头像优先级探测函数
+        按顺序尝试: avatar.png → avatar.jpg → avatar.jpeg
+        任意一个加载成功即停止，显示头像图片
+  ================================================ */
+  (function tryLoadAvatar() {
+    const formats = ['avatar.png', 'avatar.jpg', 'avatar.jpeg'];
+    const img = document.getElementById('avatarImg');
+    const placeholder = document.getElementById('avatarPlaceholder');
+    let idx = 0;
+
+    function attempt() {
+      if (idx >= formats.length) {
+        // 所有格式均失败，保持占位样式，不做任何操作
+        console.log('[Avatar] 未找到头像文件，显示占位样式');
+        return;
+      }
+      const src = formats[idx];
+      const probe = new Image();
+      probe.onload = function () {
+        // 加载成功：显示图片，隐藏占位文字
+        img.src = src;
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+        console.log('[Avatar] 加载成功:', src);
+      };
+      probe.onerror = function () {
+        // 当前格式失败，尝试下一个
+        idx++;
+        attempt();
+      };
+      probe.src = src;
+    }
+    
+    attempt();
+  })();
+
+  /* ================================================
+     2. 栏目切换逻辑
+        支持 PC 导航 + 移动端菜单 + 快捷按钮
+  ================================================ */
+  // 所有 section ID 映射
+  const sections = {
+    home:   'sec-home',
+    work:   'sec-work',
+    edu:    'sec-edu',
+    skills: 'sec-skills',
+    certs:  'sec-certs',
+  };
+
+  /**
+   * 切换显示的区域
+   * @param {string} key       - section 的 key（如 'home'）
+   * @param {HTMLElement|null} btn - 触发的按钮（用于更新 active 样式）
+   * @param {boolean} isMobile - 是否来自移动端菜单
+   */
+     function switchSection(key, btn, isMobile = false) {
+
+    // 隐藏所有 section
+    Object.values(sections).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('active'); }
+    });
+    
+    // 显示目标 section
+    const target = document.getElementById(sections[key]);
+    if (target) { target.classList.add('active'); }
+    
+    // 更新 PC 导航按钮的 active 状态
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    // 更新移动端菜单按钮的 active 状态
+    document.querySelectorAll('.mobile-menu button').forEach(b => b.classList.remove('active'));
+    
+    if (btn) {
+      btn.classList.add('active');
+      // 同步对应的另一套导航也更新
+      if (isMobile) {
+        syncNavActive(key, '.nav-links button');
+      } else {
+        syncNavActive(key, '.mobile-menu button');
+      }
+    } else {
+      // 来自快捷按钮，同步两套导航
+      syncNavActive(key, '.nav-links button');
+      syncNavActive(key, '.mobile-menu button');
+    }
+    
+    // 切换到技能页时触发进度条动画
+    if (key === 'skills') {
+      setTimeout(animateSkillBars, 100);
+    }
+    
+    // 移动端：切换后关闭下拉菜单
+    if (isMobile) { closeMobileMenu(); }
+    
+    // 滚动到顶部（平滑）
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /** 同步另一套导航的 active 按钮（通过文本内容匹配） */
+  function syncNavActive(key, selector) {
+    const textMap = {
+      home:   '首页',
+      work:   '工作经历',
+      edu:    '教育背景',
+      skills: '技能特长',
+      certs:  '证书荣誉',
+    };
+    const match = textMap[key];
+    document.querySelectorAll(selector).forEach(b => {
+      if (b.textContent.includes(match)) { b.classList.add('active'); }
+    });
+  }
+
+  /* ================================================
+     3. 移动端汉堡菜单控制
+  ================================================ */
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // 点击菜单外部关闭移动端菜单
+  document.addEventListener('click', function (e) {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    if (menu.classList.contains('open') &&
+        !menu.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
+  /* ================================================
+     4. 技能进度条动画
+        首次进入技能页时触发，之后不重复
+  ================================================ */
+  let barsAnimated = false;
+
+  function animateSkillBars() {
+    if (barsAnimated) return;
+    barsAnimated = true;
+
+    const fills = document.querySelectorAll('.skill-bar-fill');
+    fills.forEach((fill, i) => {
+      const targetW = fill.getAttribute('data-w') + '%';
+      // 错开动画，增加层次感
+      setTimeout(() => {
+        fill.style.width = targetW;
+      }, i * 80);
+    });
+  }
+
+  /* ================================================
+     5. 复制联系方式
+  ================================================ */
+    function copyContact() {
+      const info = '李洛书 | 电话/微信：15195885781 | 邮箱：li19961234@gmail.com';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(info).then(() => showToast('联系方式已复制到剪贴板 ✓'));
+      } else {
+        // 兼容旧浏览器
+        const ta = document.createElement('textarea');
+        ta.value = info;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('联系方式已复制到剪贴板 ✓');
+      }
+    }
+
+  function showToast(msg) {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast';
+      toast.style.cssText = `
+        position:fixed; bottom:32px; left:50%; transform:translateX(-50%);
+        background:var(--text-main); color:#fff;
+        padding:12px 28px; border-radius:6px;
+        font-size:0.85rem; font-weight:600; letter-spacing:0.05em;
+        z-index:9999; opacity:0; transition:opacity 0.3s;
+        box-shadow:0 4px 20px rgba(0,0,0,0.2);
+        white-space:nowrap;
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2400);
+  }
+
+  /* ================================================
+     6. 页面加载完成后的初始化
+  ================================================ */
+  window.addEventListener('DOMContentLoaded', function () {
+    // 确保首页为激活状态
+    switchSection('home', null);
+    // 手动激活首页按钮
+    const firstNavBtn = document.querySelector('.nav-links button');
+    const firstMobileBtn = document.querySelector('.mobile-menu button');
+    if (firstNavBtn) firstNavBtn.classList.add('active');
+    if (firstMobileBtn) firstMobileBtn.classList.add('active');
+  });
+</script>
+</body>
+</html>
